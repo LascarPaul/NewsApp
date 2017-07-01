@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private static final String BOOK_REQUEST_URL = "http://content.guardianapis.com/search?show-fields=thumbnail&order-by=newest&q=";
+    private static final String News_REQUEST_URL = "http://content.guardianapis.com/search?show-fields=thumbnail&order-by=newest&api-key=test";
 
-    private static final int BOOK_LOADER_ID = 1;
+    private static final int NEWS_LOADER_ID = 1;
     TextView mEmptyStateTextView;
     private NewsAdapter newsAdapter;
     private SearchView searchView;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (isConnected()) {
             LoaderManager loaderManager = getLoaderManager();
-            loaderManager.initLoader(BOOK_LOADER_ID, null, this);
+            loaderManager.initLoader(NEWS_LOADER_ID, null, this);
 
         } else {
             mloadingIndicator.setVisibility(View.GONE);
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     mQuery = searchView.getQuery().toString();
                     mQuery = mQuery.replace(" ", "+");
                     Log.v(LOG_TAG, mQuery);
-                    getLoaderManager().restartLoader(BOOK_LOADER_ID, null, MainActivity.this);
+                    getLoaderManager().restartLoader(NEWS_LOADER_ID, null, MainActivity.this);
                     searchView.clearFocus();
                 } else {
                     newsListView.setVisibility(View.INVISIBLE);
@@ -114,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         String requestUrl = "";
         if (mQuery != null && mQuery != "") {
-            requestUrl = BOOK_REQUEST_URL + mQuery;
+            requestUrl = News_REQUEST_URL + mQuery;
         } else {
             String defaultQuery = "";
-            requestUrl = BOOK_REQUEST_URL + defaultQuery;
+            requestUrl = News_REQUEST_URL + defaultQuery;
         }
         return new NewsLoader(this, requestUrl);
     }

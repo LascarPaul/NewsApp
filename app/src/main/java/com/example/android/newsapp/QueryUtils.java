@@ -118,28 +118,48 @@ public class QueryUtils {
 
             JSONObject baseJsonResponse = new JSONObject(newsJson);
 
-            JSONArray newsArray = baseJsonResponse.getJSONArray("response");
+            JSONObject repsonse = baseJsonResponse.getJSONObject("response");
 
-            for (int i = 0; i < newsArray.length(); i++) {
-
-                JSONObject currentNews = newsArray.getJSONObject(i);
-
-                JSONObject newsInfo = currentNews.getJSONObject("results");
-
-                String title = newsInfo.getString("webTitle");
-
-                long date = newsInfo.getLong("webPublicationDate");
-
-                String newsUrl = newsInfo.getString("webUrl");
-
-                String section = newsInfo.getString("sectionName");
-
-                JSONObject imageUrl = newsInfo.getJSONObject("fields");
-                String coverUrl = imageUrl.getString("thumbnail");
+            JSONArray result = repsonse.getJSONArray("results");
 
 
+            String title;
+            long date;
+            String newsUrl;
+            String section;
+            String coverUrl;
 
-                News newsObject = new News(section, title, newsUrl, coverUrl, date );
+            for (int i = 0; i < result.length(); i++) {
+
+                JSONObject currentNews = result.getJSONObject(i);
+
+                if (currentNews.has("sectionName")) {
+                    section = currentNews.getString("sectionName");
+                } else section = null;
+
+
+                if (currentNews.has("webPublicationDate")) {
+                    date = currentNews.getLong("webPublicationDate");
+                } else date = 0;
+
+
+                if (currentNews.has("webTitle")) {
+                    title = currentNews.getString("webTitle");
+                } else title = null;
+
+
+                if (currentNews.has("webUrl")) {
+                    newsUrl = currentNews.getString("webUrl");
+                } else newsUrl = null;
+
+
+                JSONArray fields = currentNews.getJSONArray("fields");
+                JSONObject imgObj = fields.getJSONObject(0);
+                coverUrl = imgObj.getString("thumbnail");
+
+
+
+                News newsObject = new News(section, title, newsUrl, coverUrl, date);
 
                 news.add(newsObject);
             }
