@@ -124,7 +124,7 @@ public class QueryUtils {
 
 
             String title;
-            long date;
+            String date;
             String newsUrl;
             String section;
             String coverUrl;
@@ -139,8 +139,8 @@ public class QueryUtils {
 
 
                 if (currentNews.has("webPublicationDate")) {
-                    date = currentNews.getLong("webPublicationDate");
-                } else date = 0;
+                    date = currentNews.getString("webPublicationDate");
+                } else date = null;
 
 
                 if (currentNews.has("webTitle")) {
@@ -153,9 +153,8 @@ public class QueryUtils {
                 } else newsUrl = null;
 
 
-                JSONArray fields = currentNews.getJSONArray("fields");
-                JSONObject imgObj = fields.getJSONObject(0);
-                coverUrl = imgObj.getString("thumbnail");
+                JSONObject fields = currentNews.getJSONObject("fields");
+                coverUrl = fields.getString("thumbnail");
 
 
 

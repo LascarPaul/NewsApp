@@ -5,7 +5,7 @@
     <dimen name="general_margin">4dp</dimen>
     <dimen name="image_height">130dp</dimen>
     <dimen name="small_height">40dp</dimen>
-    <dimen name="title_size">16sp</dimen>
-    <dimen name="author_size">12sp</dimen>
+    <dimen name="title_size">15sp</dimen>
+    <dimen name="author_size">14sp</dimen>
     <dimen name="list_view_margin_top">45dp</dimen>
 </resources>

@@ -37,10 +37,10 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView titleView = (TextView) listItemView.findViewById(R.id.news_title);
         titleView.setText(currentNews.getmTitle());
 
-        Date dateObject = new Date(currentNews.getmDate());
+
+
         TextView dateView = (TextView) listItemView.findViewById(R.id.news_date);
-        String formattedDate = formatDate(dateObject);
-        dateView.setText(formattedDate);
+        dateView.setText(currentNews.getmDate().substring(0, 10));
 
         TextView sectionView = (TextView) listItemView.findViewById(R.id.news_section);
         sectionView.setText(currentNews.getmSection());

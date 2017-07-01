@@ -14,9 +14,9 @@ public class News {
 
     String mUrlCover;
 
-    Long mDate;
+    String mDate;
 
-    public News(String mSection, String mTitle, String mUrl, String mUrlCover, Long mDate) {
+    public News(String mSection, String mTitle, String mUrl, String mUrlCover, String mDate) {
         this.mSection = mSection;
         this.mTitle = mTitle;
         this.mUrl = mUrl;
@@ -40,7 +40,7 @@ public class News {
         return mUrlCover;
     }
 
-    public Long getmDate() {
+    public String getmDate() {
         return mDate;
     }
 }
