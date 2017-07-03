@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    private static final String News_REQUEST_URL = "http://content.guardianapis.com/search?show-fields=thumbnail&order-by=newest&api-key=test";
+    private static final String News_REQUEST_URL = "http://content.guardianapis.com/search?show-fields=thumbnail&order-by=newest&api-key=test&q=";
 
     private static final int NEWS_LOADER_ID = 1;
     TextView mEmptyStateTextView;
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         String requestUrl = "";
         if (mQuery != null && mQuery != "") {
-            requestUrl = News_REQUEST_URL + mQuery;
+            requestUrl = News_REQUEST_URL +  mQuery;
         } else {
             String defaultQuery = "";
             requestUrl = News_REQUEST_URL + defaultQuery;
@@ -125,12 +125,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
-        mEmptyStateTextView.setText(R.string.error);
-        mloadingIndicator.setVisibility(View.GONE);
-        newsAdapter.clear();
 
-        if (news != null && !news.isEmpty()) {
-            newsAdapter.addAll(news);
+        if (isConnected()) {
+
+            mEmptyStateTextView.setText(R.string.error);
+            mloadingIndicator.setVisibility(View.GONE);
+            newsAdapter.clear();
+
+            if (news != null && !news.isEmpty()) {
+                newsAdapter.addAll(news);
+            }
+        } else {
+            newsListView.setVisibility(View.INVISIBLE);
+            mloadingIndicator.setVisibility(View.GONE);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
+            mEmptyStateTextView.setText(R.string.noInternet);
         }
     }
 

@@ -29,7 +29,7 @@ public class QueryUtils {
 
     }
 
-    public static List<News> fetchBookData(String requestUrl) {
+    public static List<News> fetchNewsData(String requestUrl) {
 
         URL url = createUrl(requestUrl);
 
@@ -122,7 +122,6 @@ public class QueryUtils {
 
             JSONArray result = repsonse.getJSONArray("results");
 
-
             String title;
             String date;
             String newsUrl;
@@ -155,8 +154,6 @@ public class QueryUtils {
 
                 JSONObject fields = currentNews.getJSONObject("fields");
                 coverUrl = fields.getString("thumbnail");
-
-
 
                 News newsObject = new News(section, title, newsUrl, coverUrl, date);
 

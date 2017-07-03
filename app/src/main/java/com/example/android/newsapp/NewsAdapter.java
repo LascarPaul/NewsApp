@@ -55,9 +55,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         return listItemView;
     }
 
-    private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
-        return dateFormat.format(dateObject);
-    }
+
 
 }
